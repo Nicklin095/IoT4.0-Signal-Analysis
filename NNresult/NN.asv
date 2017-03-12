@@ -9,7 +9,7 @@ warning off;
 %--------------------------------------------------------------------------
 % 資料資訊
 %--------------------------------------------------------------------------
-load('C:\Users\nick\Desktop\dataProcess\NN_Data.mat');
+load('C:\Users\nick\Desktop\dataProcess\NN_Data_v4.mat');
 run_index1=[1];
 
 train_datau=train_data;%值
