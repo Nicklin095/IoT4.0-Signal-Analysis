@@ -13,14 +13,14 @@ w3_temp=brnn.w3;
 w1_temp=brnn.w1;
 
 % activation.delta_s=activation.error;
-activation.delta_s=input_data-brnn.Y;
+activation.delta_s=(input_data-brnn.Y)*(brnn.Y*brnn.Y*(1-brnn.Y));
 for j=1:brnn.number_of_output
     for i=1:brnn.number_of_neural1
         brnn.w3(j,i)=brnn.w3(j,i)+brnn.eta_wbb*activation.delta_s(j,1)*brnn.oq(i,1);
     end
 end
-
-activation.delta_q=zeros(brnn.number_of_neural1,1);
+temp = (1-brnn.fq)*brnn.fq'
+activation.delta_q=(activation.delta_s*brnn.w1)*(brnn.op*temp);
 % §ó·sw1 and d1 ¯x°}
 for j=1:brnn.number_of_output
     for i=1:brnn.number_of_neural1
