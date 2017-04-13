@@ -9,7 +9,7 @@ warning off;
 %--------------------------------------------------------------------------
 % 資料資訊
 %--------------------------------------------------------------------------
-load('C:\Users\nick\Desktop\dataProcess\NN_Data.mat');
+load('C:\Users\nicklin\Documents\MATLAB\Matlab_code\IoT\NN_Data.mat');
 run_index1=[1];
 
 train_datau=train_data;%值
@@ -61,10 +61,9 @@ super_super_filter_flag=0;
 information.number_of_output=1;
 % information.number_of_neural1=2;
 information.w1=rand(information.number_of_neural1,information.number_of_input)*2-1;  %產生 rand(row, col)隨意數值矩陣
-information.w3=rand(information.number_of_output,information.number_of_neural1)*2-1; % *2-1 產生負值
+information.w3=rand(information.number_of_output,information.number_of_neural1)*2-1;
 information.d1=rand(information.number_of_neural1,1)*2-1;
-% information.epoch=1;
-information.goal=zeros(1,row);   %目標    
+% information.epoch=1;  
 information.eta_wbb=0.001;     
 % information.choose_ratio=0.01;
 information.small_ratio=0.1;  
@@ -91,9 +90,7 @@ brnn.oq=[];
                 brnn.op=train_datau(:,j);
                 brnn.fq=brnn.w1*brnn.op+brnn.d1;%隱藏層的計算
                 for k=1:brnn.number_of_neural1
-                    brnn.pos_exp=exp(brnn.fq(k,1));
-                    brnn.minu_exp=exp(-brnn.fq(k,1));
-                    brnn.oq(k,1)=(brnn.pos_exp-brnn.minu_exp)/(brnn.pos_exp+brnn.minu_exp);
+                    brnn.oq(k,1)=1/(1+exp(-brnn.fq(k,1)));
                 end
                 brnn.Y=brnn.w3*brnn.oq;%輸出
                 [brnn]=network_update(brnn, train_datay(:,j));
